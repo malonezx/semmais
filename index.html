@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Arquivos com Notificação</title>
+</head>
+<body>
+    <h1>Envie um arquivo</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+        Selecione um arquivo para fazer upload:
+        <input type="file" name="arquivo" id="arquivo">
+        <input type="button" value="Enviar Arquivo" id="submit-button">
+    </form>
+    <div id="notification" style="display: none;"></div>
+    <script>
+        document.getElementById("submit-button").addEventListener("click", function() {
+            var form = document.getElementById("upload-form");
+            var fileInput = document.getElementById("arquivo");
+
+            if (fileInput.files.length > 0) {
+                var formData = new FormData(form);
+                var xhr = new XMLHttpRequest();
+
+                xhr.open("POST", "upload.php", true);
+
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Exibir uma notificação de sucesso
+                        document.getElementById("notification").style.display = "block";
+                        document.getElementById("notification").innerHTML = "Arquivo enviado com sucesso!";
+                    } else {
+                        // Exibir uma notificação de erro, se necessário
+                        document.getElementById("notification").style.display = "block";
+                        document.getElementById("notification").innerHTML = "Erro ao enviar o arquivo.";
+                    }
+                };
+
+                xhr.send(formData);
+            }
+        });
+    </script>
+</body>
+</html>
