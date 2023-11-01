@@ -1,6 +1,6 @@
 <?php
 if (isset($_FILES["arquivo"])) {
-    $targetDir = "uploads/";
+    $targetDir = "/uploads";
     $targetFile = $targetDir . basename($_FILES["arquivo"]["name"]);
 
     if (move_uploaded_file($_FILES["arquivo"]["tmp_name"], $targetFile)) {
